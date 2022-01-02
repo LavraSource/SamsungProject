@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Unit {
     // Every tile spends move points from the unit
-    int movePoints;
+    int humanAmount;
     int health;
     int damage;
 
