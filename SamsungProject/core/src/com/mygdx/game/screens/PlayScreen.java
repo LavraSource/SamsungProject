@@ -8,15 +8,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.scenes.GameHUD;
 
 public class PlayScreen implements Screen {
     private MyGdxGame game;
     Texture texture;
     private OrthographicCamera gameCamera;
     private Viewport gamePort;
-
+    private GameHUD hud;
+    
     public PlayScreen(MyGdxGame game) {
         this.game = game;
+        hud = new GameHUD(game.batch);
         texture = new Texture("grass.png");
         gameCamera = new OrthographicCamera();
         gamePort = new ScreenViewport(gameCamera);
@@ -30,13 +33,10 @@ public class PlayScreen implements Screen {
     @Override
     public void render(float delta) {
         // Fills the empty space with white color
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.setProjectionMatrix(gameCamera.combined);
-        // Draws the texture using the batch (container of sprites)
-        game.batch.begin();
-        game.batch.draw(texture, 100, 100);
-        game.batch.end();
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     @Override
